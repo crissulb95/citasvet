@@ -10,6 +10,8 @@ const Formulario = () => {
         hora: '',
         sintomas: ''
     } );
+    //crear state para cuando exista un error en el llenado del formulario(este vacio un campo)
+    const [error, updateError] = useState(false);
 
     //función que se activa cada vez que el usuario escribe en un input
     const handleChange = e => {
@@ -22,13 +24,38 @@ const Formulario = () => {
         } );
     };
 
+    //función que se activa al recibir un submit de un formulario
+    const handleSubmit = e => {
+        e.preventDefault(); //el preventDefault sirve igualmente en react como JS sin problemas
+        
+        //Validar todos los datos y revisar que esten correctamente escritos en los campos
+        if( mascota.trim() === '' || owner.trim() === '' || fecha.trim() === '' || hora.trim() === '' || sintomas.trim() === '' ) {
+            //si se sabe de un campo que esté vacío en el formulario, se actualiza el errorState
+            updateError(true);
+            return;
+            
+        }
+
+        //Crear la cita y ubicarla en el state principal
+
+        //Reiniciar el form
+        
+    }
+
     //extracción de los datos con destructuring
     const { mascota, owner, fecha, hora, sintomas } = cita;
     return ( 
         <Fragment>
             <h2>Apuntar cita</h2>
 
-            <form>
+            {/*En caso de que haya un error y se cambie el stateError a true, se creará un ternario que habilite el mensaje de advertencia de que ha ocurrido un error */}
+            {error 
+            ? <p className='alerta-error'>Todos los campos son obligatorios</p>
+            : null}
+
+            <form
+                onSubmit={handleSubmit}
+            >
                 <label htmlFor='mascota'>NOMBRE DE LA MASCOTA</label>
                 <input 
                     type='text'
