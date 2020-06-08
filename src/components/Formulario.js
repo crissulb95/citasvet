@@ -44,7 +44,7 @@ const Formulario = () => {
 
                 <button
                     type='submit'
-                    className='u-full-width button-primary'
+                    className='u-full-width button-primary '
                 >
                     Agendar cita
                 </button>
