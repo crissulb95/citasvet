@@ -1,7 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Formulario from './components/Formulario.js';
 
 export default function App() {
+
+  //Arreglo de todas las citas
+  const [todasCitas, updateTodasCitas] = useState([]);
   return (
     <div className="App">
       <Fragment>

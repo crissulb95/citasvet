@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Formulario = () => {
     //crear state de citas con toda la información de la agenda
@@ -33,8 +34,15 @@ const Formulario = () => {
             //si se sabe de un campo que esté vacío en el formulario, se actualiza el errorState
             updateError(true);
             return;
-            
         }
+        //en caso de que exista una alerta de error previa, se elimina llamando al updateError
+        updateError(false);//volviendolo a dejar en false
+
+        //Asignarle un ID unico a cada cita, se instala el módulo npm i uuid y se importa como 
+        //import { v4 as uuidv4 } from 'uuid'; (generador de ID random)
+        cita.id = uuidv4();
+        
+
 
         //Crear la cita y ubicarla en el state principal
 
