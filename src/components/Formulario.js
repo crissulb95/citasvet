@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
-const Formulario = () => {
-    //crear state de citas con toda la información de la agenda
+const Formulario = ({crearCita}) => {
+    //crear state de la información de una cita
     const [cita, updateCita] = useState( {
         //cada propiedad tiene que tener el mismo nombre que en la propiedad name del input
         mascota: '',
@@ -41,17 +42,26 @@ const Formulario = () => {
         //Asignarle un ID unico a cada cita, se instala el módulo npm i uuid y se importa como 
         //import { v4 as uuidv4 } from 'uuid'; (generador de ID random)
         cita.id = uuidv4();
-        
-
-
         //Crear la cita y ubicarla en el state principal
-
+        //función que modifica un state (todo en el archivo App) donde se guardan todas las citas 
+        crearCita(cita);
         //Reiniciar el form
-        
+        //una vez se haya hecho el registro en la agenda de citas, es bueno reiniciar el form,
+        //utilizando las funciones creadas en el hook del state
+        //SE REINICIAN PORQUE SE AGREGARON A CADA ITEM UN VALUE CORRESPONDIENTE CON CADA VALOR DEL
+        //ESTADO, AL ESTAR VACIO EL VALOR DEL STATE, EL VALOR DE CADA ITEM DEL FORMULARIO SE VACÍA
+        updateCita({
+            mascota: '',
+            owner: '',
+            fecha: '',
+            hora: '',
+            sintomas: ''
+        })
     }
 
     //extracción de los datos con destructuring
     const { mascota, owner, fecha, hora, sintomas } = cita;
+
     return ( 
         <Fragment>
             <h2>Apuntar cita</h2>
@@ -125,5 +135,9 @@ const Formulario = () => {
         </Fragment>
     );
 }
+
+Formulario.propTypes = {
+    crearCita: PropTypes.func.isRequired 
+};
  
 export default Formulario;
